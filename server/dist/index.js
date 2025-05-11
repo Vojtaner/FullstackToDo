@@ -1,9 +1,14 @@
 import express from "express";
+import cors from "cors";
 const app = express();
 const PORT = 3005;
+app.use(cors({
+    origin: "http://localhost:3009",
+}));
 app.use(express.json());
 let todos = [
     { id: 1, text: "Vyčistit záchod" },
+    { id: 2, text: "Jít nakupovat" },
 ];
 app.get("/todos", (req, res) => {
     res.json(todos);
