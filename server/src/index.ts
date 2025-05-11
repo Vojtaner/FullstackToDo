@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import express from "express";
-import { PrismaClient } from "@prisma/client";
 import cors from "cors";
+import { PrismaClient } from "@prisma/client";
 
 const app = express();
-
 const prisma = new PrismaClient();
+
 const PORT = 3005;
 
 app.use(
@@ -15,10 +15,6 @@ app.use(
 );
 app.use(express.json());
 
-let todos: { id: number; text: string }[] = [
-  { id: 1, text: "Vyčistit záchod" },
-  { id: 2, text: "Jít nakupovat" },
-];
 app.get("/todos", async (_req: Request, res: Response) => {
   const todos = await prisma.todo.findMany();
   res.json(todos);

@@ -1,6 +1,6 @@
 import express from "express";
-import { PrismaClient } from "@prisma/client";
 import cors from "cors";
+import { PrismaClient } from "@prisma/client";
 const app = express();
 const prisma = new PrismaClient();
 const PORT = 3005;
@@ -8,10 +8,6 @@ app.use(cors({
     origin: "http://localhost:3009",
 }));
 app.use(express.json());
-let todos = [
-    { id: 1, text: "Vyčistit záchod" },
-    { id: 2, text: "Jít nakupovat" },
-];
 app.get("/todos", async (_req, res) => {
     const todos = await prisma.todo.findMany();
     res.json(todos);
