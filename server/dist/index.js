@@ -1,6 +1,8 @@
 import express from "express";
+import { PrismaClient } from "@prisma/client";
 import cors from "cors";
 const app = express();
+const prisma = new PrismaClient();
 const PORT = 3005;
 app.use(cors({
     origin: "http://localhost:3009",
@@ -10,15 +12,17 @@ let todos = [
     { id: 1, text: "Vyčistit záchod" },
     { id: 2, text: "Jít nakupovat" },
 ];
-app.get("/todos", (req, res) => {
+app.get("/todos", async (_req, res) => {
+    const todos = await prisma.todo.findMany();
     res.json(todos);
 });
-app.post("/todos", (req, res) => {
+app.post("/todos", async (req, res) => {
     const { text } = req.body;
     if (!text)
         return res.status(400).json({ error: "Text is required" });
-    const newTodo = { id: Date.now(), text };
-    todos.push(newTodo);
+    const newTodo = await prisma.todo.create({
+        data: { text },
+    });
     res.status(201).json(newTodo);
 });
 app.listen(PORT, () => {
