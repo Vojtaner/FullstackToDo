@@ -6,8 +6,6 @@ import { PrismaClient } from "@prisma/client";
 const app = express();
 const prisma = new PrismaClient();
 
-const PORT = 8080;
-
 app.use(cors());
 app.use(express.json());
 
@@ -27,6 +25,6 @@ app.post("/todos", async (req: Request, res: Response): Promise<any> => {
   res.status(201).json(newTodo);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server running at http://localhost:${process.env.PORT}`);
 });

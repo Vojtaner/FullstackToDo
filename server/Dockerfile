@@ -1,6 +1,7 @@
 FROM node:23-bullseye
 WORKDIR /app
 COPY package*.json ./
+ENV PORT=8080
 ##same as npm install
 RUN npm ci
 COPY . ./
