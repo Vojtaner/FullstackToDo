@@ -12,7 +12,7 @@ const App = () => {
 
   const fetchTodos = async () => {
     try {
-      const response = await fetch('http://localhost:3005/todos');
+      const response = await fetch('http://localhost:8080/todos');
       const data = await response.json();
       setTodos(data);
     } catch (err) {
@@ -29,7 +29,7 @@ const App = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3005/todos', {
+      const response = await fetch('http://localhost:8080/todos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
