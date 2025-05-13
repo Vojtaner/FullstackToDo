@@ -6,6 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "npx tsc && npx prisma generate && node ./dist/index.js",
+    "start:deploy": "node ./dist/index.js",
     "dev": "tsc & nodemon ./dist/index.ts"
   },
   "prisma": {
