@@ -1,6 +1,6 @@
 FROM node:23-bullseye
 WORKDIR /app
-COPY package*.json .
+COPY package*.json ./
 ##same as npm install
 RUN npm ci
 COPY . ./
