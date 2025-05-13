@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  # Služba: PostgreSQL databáze
+  db:
+    image: postgres:17
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tododb
+    ports:
+      - "5439:5439" # OPRAVA: uvnitř kontejneru musí být 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Služba: Node.js backend
+  backend:
+    build: ./server
+    container_name: node-backend
+    ports:
+      - "3005:3005"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/tododb?schema=public"
+    depends_on:
+      - db
+
+  # Služba: React frontend
+  frontend:
+    build: ./client
+    container_name: react-frontend
+    ports:
+      - "3008:3009"
+    environment:
+      - PORT=3009
+      - HOST=0.0.0.0
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
