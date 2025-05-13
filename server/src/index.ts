@@ -28,3 +28,5 @@ app.post("/todos", async (req: Request, res: Response): Promise<any> => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+
+// "start": "npx tsc && npx prisma generate && node ./dist/index.js",
