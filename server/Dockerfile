@@ -2,7 +2,7 @@ FROM node:23-bullseye
 WORKDIR /app
 COPY package*.json ./
 ENV PORT=8080
-ENV PORT=postgresql://postgres:postgres@34.58.117.112:5432/todoapp
+ENV DATABASE_URL=postgresql://postgres:postgres@34.58.117.112:5432/todoapp
 ##same as npm install
 RUN npm ci
 COPY . ./
