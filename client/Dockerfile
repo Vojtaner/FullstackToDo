@@ -1,5 +1,12 @@
-FROM node:23-bullseye-slim
+FROM node:23-bullseye-slim as build
 WORKDIR /app
 COPY . .
 RUN npm install
-CMD ["npm", "run","dev"]
+RUN npm run build
+
+FROM node:18-slim
+WORKDIR /app
+RUN npm install -g serve
+COPY --from=build /app/dist ./dist
+ENV PORT=8080
+CMD ["serve", "-s", "dist", "-l", "8080"]
